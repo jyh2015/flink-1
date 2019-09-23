@@ -1306,7 +1306,7 @@ under the License.
 					<execution>
 						<phase>verify</phase>
 						<goals>
-							<goal>check</goal>
+							<!-- <goal>check</goal> -->
 						</goals>
 					</execution>
 				</executions>

@@ -40,11 +40,11 @@ class IntervalJoinITCase extends AbstractTestBase {
     env.setParallelism(1)
 
     val dataStream1 = env.fromElements(("key", 0L), ("key", 1L), ("key", 2L))
-      .assignTimestampsAndWatermarks(new TimestampExtractor())
+      .assignTimestampsAndWatermarks(new TimestampExtractor1())
       .keyBy(elem => elem._1)
 
     val dataStream2 = env.fromElements(("key", 0L), ("key", 1L), ("key", 2L))
-      .assignTimestampsAndWatermarks(new TimestampExtractor())
+      .assignTimestampsAndWatermarks(new TimestampExtractor1())
       .keyBy(elem => elem._1)
 
     val sink = new ResultSink()
@@ -78,11 +78,11 @@ class IntervalJoinITCase extends AbstractTestBase {
     env.setParallelism(1)
 
     val dataStream1 = env.fromElements(("key", 0L), ("key", 1L), ("key", 2L))
-      .assignTimestampsAndWatermarks(new TimestampExtractor())
+      .assignTimestampsAndWatermarks(new TimestampExtractor1())
       .keyBy(elem => elem._1)
 
     val dataStream2 = env.fromElements(("key", 0L), ("key", 1L), ("key", 2L))
-      .assignTimestampsAndWatermarks(new TimestampExtractor())
+      .assignTimestampsAndWatermarks(new TimestampExtractor1())
       .keyBy(elem => elem._1)
 
     val sink = new ResultSink()
@@ -121,7 +121,7 @@ class ResultSink extends SinkFunction[(String, Long)] {
   }
 }
 
-class TimestampExtractor extends AscendingTimestampExtractor[(String, Long)] {
+class TimestampExtractor1 extends AscendingTimestampExtractor[(String, Long)] {
   override def extractAscendingTimestamp(element: (String, Long)): Long = element._2
 }
 

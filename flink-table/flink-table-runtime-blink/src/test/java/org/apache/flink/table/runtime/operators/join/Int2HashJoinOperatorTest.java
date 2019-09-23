@@ -254,12 +254,13 @@ public class Int2HashJoinOperatorTest implements Serializable {
 		BaseRowTypeInfo typeInfo = new BaseRowTypeInfo(new IntType(), new IntType());
 		BaseRowTypeInfo baseRowType = new BaseRowTypeInfo(
 				new IntType(), new IntType(), new IntType(), new IntType());
-		TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> testHarness =
-			new TwoInputStreamTaskTestHarness<>(
+		//TODO jyh
+		TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> testHarness = null;
+			/*new TwoInputStreamTaskTestHarness<>(
 					(operator instanceof InputSelectable || operator instanceof StreamOperatorFactory) ?
 							TwoInputSelectableStreamTask::new :
 							TwoInputStreamTask::new,
-				2, 1, new int[]{1, 2}, typeInfo, (TypeInformation) typeInfo, baseRowType);
+				2, 1, new int[]{1, 2}, typeInfo, (TypeInformation) typeInfo, baseRowType);*/
 		testHarness.memorySize = 36 * 1024 * 1024;
 		testHarness.getExecutionConfig().enableObjectReuse();
 		testHarness.setupOutputForSingletonOperatorChain();

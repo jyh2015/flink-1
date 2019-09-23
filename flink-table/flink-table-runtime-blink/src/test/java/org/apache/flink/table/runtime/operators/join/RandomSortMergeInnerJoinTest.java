@@ -240,10 +240,11 @@ public class RandomSortMergeInnerJoinTest {
 		BaseRowTypeInfo typeInfo = new BaseRowTypeInfo(new IntType(), new VarCharType(VarCharType.MAX_LENGTH));
 		BaseRowTypeInfo joinedInfo = new BaseRowTypeInfo(
 				new IntType(), new VarCharType(VarCharType.MAX_LENGTH), new IntType(), new VarCharType(VarCharType.MAX_LENGTH));
-		final TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> testHarness =
-			new TwoInputStreamTaskTestHarness<>(
+		//TODO jyh
+		final TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> testHarness = null;
+			/*new TwoInputStreamTaskTestHarness<>(
 				TwoInputStreamTask::new, 2, 1, new int[]{1, 2}, typeInfo, (TypeInformation) typeInfo,
-				joinedInfo);
+				joinedInfo);*/
 
 		// Deep pit!!! Cause in TwoInputStreamTaskTestHarness, one record one buffer.
 		testHarness.bufferSize = 10 * 1024;

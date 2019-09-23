@@ -139,9 +139,10 @@ public class String2SortMergeJoinOperatorTest {
 	}
 
 	private TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> buildSortMergeJoin(StreamOperator operator) throws Exception {
-		final TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> testHarness =
-				new TwoInputStreamTaskTestHarness<>(TwoInputStreamTask::new, 2, 2,
-					new int[]{1, 2}, typeInfo, (TypeInformation) typeInfo, joinedInfo);
+		//TODO jyh
+		final TwoInputStreamTaskTestHarness<BinaryRow, BinaryRow, JoinedRow> testHarness = null;
+				/*new TwoInputStreamTaskTestHarness<>(TwoInputStreamTask::new, 2, 2,
+					new int[]{1, 2}, typeInfo, (TypeInformation) typeInfo, joinedInfo);*/
 
 		testHarness.memorySize = 36 * 1024 * 1024;
 		testHarness.setupOutputForSingletonOperatorChain();

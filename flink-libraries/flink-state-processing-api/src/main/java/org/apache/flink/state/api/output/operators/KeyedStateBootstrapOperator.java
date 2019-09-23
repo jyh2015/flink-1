@@ -70,8 +70,10 @@ public class KeyedStateBootstrapOperator<K, IN>
 			VoidTriggerable.instance());
 
 		TimerService timerService = new SimpleTimerService(internalTimerService);
-
-		context = new KeyedStateBootstrapOperator<K, IN>.ContextImpl(userFunction, timerService);
+        
+		//TODO jyh
+		//context = new KeyedStateBootstrapOperator<K, IN>.ContextImpl(userFunction, timerService);
+		context = new ContextImpl(userFunction, timerService);
 	}
 
 	@Override
