@@ -239,13 +239,15 @@ This file is based on the checkstyle file of Apache Beam.
       <property name="format" value="^import com.google.common.base.Preconditions;$"/>
       <property name="message" value="Static import functions from Guava Preconditions"/>
     </module>
-
+    
+	<!-- TODO jyh
     <module name="UnusedImports">
       <property name="severity" value="error"/>
       <property name="processJavadoc" value="true"/>
       <message key="import.unused"
                value="Unused import: {0}."/>
     </module>
+    -->
 
     <!--
 
