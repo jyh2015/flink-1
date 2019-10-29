@@ -21,6 +21,35 @@
 # Common
 #==============================================================================
 
+##------ 复赛默认配置，请勿修改，修改后算作无效成绩！-------##
+# The heap size for the JobManager JVM
+jobmanager.heap.size: 1g
+
+# The heap size for the TaskManager JVM
+taskmanager.heap.size: 1g
+
+# The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
+taskmanager.numberOfTaskSlots: 2
+
+##------ 复赛默认配置，请勿修改，修改后算作无效成绩！-------##
+
+##------- 建议配置（不配必挂） -------##
+# 超时相关参数
+akka.ask.timeout: 300 s
+akka.framesize: 102400kB
+akka.throughput: 100
+akka.client.timeout: 3600 s
+heartbeat.timeout: 300000
+# 临时文件目录，不要往/tmp目录下，/tmp目录所在磁盘很小
+io.tmp.dirs: /disk/1/tmp
+
+# gc相关配置
+env.java.opts.jobmanager: "-XX:+PrintGCDetails -XX:+PrintGCDateStamps  -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=2 -XX:GCLogFileSize=512M"
+env.java.opts.taskmanager: "-XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=2 -XX:GCLogFileSize=512M"
+##------ 建议配置（不配必挂）-------##
+
+##------ 其他配置，选手自己可以配置
+
 # The external address of the host on which the JobManager runs and can be
 # reached by the TaskManagers and any clients which want to connect. This setting
 # is only used in Standalone mode and may be overwritten on the JobManager side
@@ -31,33 +60,17 @@
 # JobManager runs.
 
 jobmanager.rpc.address: localhost
-
 # The RPC port where the JobManager is reachable.
-
 jobmanager.rpc.port: 6123
 
-
-# The heap size for the JobManager JVM
-
-#jobmanager.heap.size: 1024m
-jobmanager.heap.size: 2gb
-
-# The heap size for the TaskManager JVM
-
-#taskmanager.heap.size: 1024m
-taskmanager.heap.size: 2gb
-
-# The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
-
-#taskmanager.numberOfTaskSlots: 1
-taskmanager.numberOfTaskSlots: 8
-
 # The parallelism used for programs that did not specify and other parallelism.
+parallelism.default: 2
 
-parallelism.default: 4
+jobmanager.execution.failover-strategy: region
+
 
 # The default file system scheme and authority.
-# 
+#
 # By default file paths without scheme are interpreted relative to the local
 # root file system 'file:///'. Use this to override the default and interpret
 # relative paths relative to a different file system,
@@ -76,9 +89,9 @@ parallelism.default: 4
 # The path where metadata for master recovery is persisted. While ZooKeeper stores
 # the small ground truth for checkpoint and leader election, this location stores
 # the larger objects, like persisted dataflow graphs.
-# 
+#
 # Must be a durable file system that is accessible from all nodes
-# (like HDFS, S3, Ceph, nfs, ...) 
+# (like HDFS, S3, Ceph, nfs, ...)
 #
 # high-availability.storageDir: hdfs:///flink/ha/
 
@@ -117,15 +130,13 @@ parallelism.default: 4
 # state.savepoints.dir: hdfs://namenode-host:port/flink-checkpoints
 
 # Flag to enable/disable incremental checkpoints for backends that
-# support incremental checkpoints (like the RocksDB state backend). 
+# support incremental checkpoints (like the RocksDB state backend).
 #
 # state.backend.incremental: false
 
 # The failover strategy, i.e., how the job computation recovers from task failures.
 # Only restart tasks that may have been affected by the task failure, which typically includes
 # downstream tasks and potentially upstream tasks if their produced data is no longer available for consumption.
-
-jobmanager.execution.failover-strategy: region
 
 #==============================================================================
 # Rest & web frontend
@@ -194,10 +205,10 @@ jobmanager.execution.failover-strategy: region
 #
 # classloader.resolve-order: child-first
 
-# The amount of memory going to the network stack. These numbers usually need 
+# The amount of memory going to the network stack. These numbers usually need
 # no tuning. Adjusting them may be necessary in case of an "Insufficient number
 # of network buffers" error. The default min is 64MB, the default max is 1GB.
-# 
+#
 # taskmanager.network.memory.fraction: 0.1
 # taskmanager.network.memory.min: 64mb
 # taskmanager.network.memory.max: 1gb
@@ -258,24 +269,3 @@ jobmanager.execution.failover-strategy: region
 # Interval in milliseconds for refreshing the monitored directories.
 #historyserver.archive.fs.refresh-interval: 10000
 
-#==============================================================================
-# Akka Configuration
-#==============================================================================
-#akka.ask.timeout: 120s
-#akka.client.timeout: 120s
-#web.timeout: 120000
-
-#blink.miniBatch.allowLatencyMs: 5000
-#blink.miniBatch.size: 1000
-#blink.localAgg.enable: true
-
-#1.x：state.backend.rocksdb.ttl.ms: 129600000
-#2.x：state.backend.niagara.ttl.ms: 129600000
-
-#env.java.opts: -Xms512m -Xmx1536m -XX:MaxDirectMemorySize=512m
-#taskmanager.tmp.dirs
-#windows
-#io.tmp.dirs: D:/Develop/git/opensource/ali-tianchi/flink/flink-tpc-ds/flink/flink-dist/target/flink-1.9-tpcds-master-bin/flink-1.9-tpcds-master/tmp/file1;D:/Develop/git/opensource/ali-tianchi/flink/flink-tpc-ds/flink/flink-dist/target/flink-1.9-tpcds-master-bin/flink-1.9-tpcds-master/tmp/file2
-#linux
-io.tmp.dirs: /home/hadoop/flink-1.9-tpcds-master/tmp/data1:/home/hadoop/flink-1.9-tpcds-master/tmp/data2:/home/hadoop/flink-1.9-tpcds-master/tmp/data3:/home/hadoop/flink-1.9-tpcds-master/tmp/data4
-#:/home/hadoop/flink-1.9-tpcds-master/tmp/data5:/home/hadoop/flink-1.9-tpcds-master/tmp/data6:/home/hadoop/flink-1.9-tpcds-master/tmp/data7:/home/hadoop/flink-1.9-tpcds-master/tmp/data8
