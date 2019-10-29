@@ -52,3 +52,4 @@ tools/releasing/release
 tools/japicmp-output
 .cache-main
 .cache-tests
+logs/*
